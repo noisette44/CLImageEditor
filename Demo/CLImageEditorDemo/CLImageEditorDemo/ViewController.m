@@ -74,6 +74,7 @@
 {
     if(_imageView.image){
         CLImageEditor *editor = [[CLImageEditor alloc] initWithImage:_imageView.image delegate:self];
+        editor.theme.imageTemplate = [UIImage imageNamed:@"template.png"];
         //CLImageEditor *editor = [[CLImageEditor alloc] initWithDelegate:self];
         
         /*

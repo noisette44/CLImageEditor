@@ -51,6 +51,7 @@ static CLImageEditorTheme *_sharedInstance = nil;
         self.toolbarTextFont                = [UIFont systemFontOfSize:10];
         self.statusBarHidden                = NO;
         self.statusBarStyle                 = UIStatusBarStyleDefault;
+        self.imageTemplate                  = nil;
     }
     return self;
 }

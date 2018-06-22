@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIFont   *toolbarTextFont;
 @property (nonatomic, assign) BOOL statusBarHidden;
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
+@property (nonatomic, strong) UIImage *imageTemplate;
 
 + (CLImageEditorTheme*)theme;
 

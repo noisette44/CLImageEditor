@@ -324,6 +324,15 @@ static const CGFloat kMenuBarHeight = 80.0f;
         [_scrollView addSubview:_imageView];
         [self refreshImageView];
     }
+    
+    if([[CLImageEditorTheme theme] imageTemplate] != nil && _templateImageView==nil){
+        _templateImageView = [UIImageView new];
+        _templateImageView.frame = _imageView.frame;
+        _templateImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_scrollView addSubview:_templateImageView];
+        [_scrollView bringSubviewToFront:_templateImageView];
+        _templateImageView.image = [[CLImageEditorTheme theme] imageTemplate];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -563,6 +572,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
         CGFloat H = ratio * size.height * _scrollView.zoomScale;
         
         _imageView.frame = CGRectMake(MAX(0, (_scrollView.width-W)/2), MAX(0, (_scrollView.height-H)/2), W, H);
+        if(_templateImageView != nil) {
+            _templateImageView.frame = _imageView.frame;
+        }
     }
 }
 
@@ -724,6 +736,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
         if(instance!=nil && [instance isKindOfClass:[CLImageToolBase class]]){
             instance = [instance initWithImageEditor:self withToolInfo:info];
             self.currentTool = instance;
+            if(_templateImageView!=nil){
+                [_scrollView bringSubviewToFront:_templateImageView];
+            }
         }
     }
 }
