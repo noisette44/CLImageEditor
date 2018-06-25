@@ -842,6 +842,9 @@ static const CGFloat kMenuBarHeight = 80.0f;
     rct.origin.x = MAX((Ws-W)/2, 0);
     rct.origin.y = MAX((Hs-H)/2, 0);
     _imageView.frame = rct;
+    if(_templateImageView != nil) {
+        _templateImageView.frame = _imageView.frame;
+    }
 }
 
 @end

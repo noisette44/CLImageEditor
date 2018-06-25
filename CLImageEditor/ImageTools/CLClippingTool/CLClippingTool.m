@@ -36,6 +36,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 @interface CLClippingPanel : UIView
 @property (nonatomic, assign) CGRect clippingRect;
 @property (nonatomic, strong) CLRatio *clippingRatio;
+@property (nonatomic, assign) UIImageView *imageTemplate;
 - (id)initWithSuperview:(UIView*)superview frame:(CGRect)frame;
 - (void)setBgColor:(UIColor*)bgColor;
 - (void)setGridColor:(UIColor*)gridColor;
@@ -136,7 +137,10 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _gridView.bgColor = [self.editor.view.backgroundColor colorWithAlphaComponent:0.8];
     _gridView.gridColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.8];
     _gridView.clipsToBounds = NO;
-    
+    if(self.editor.templateImageView != nil) {
+        _gridView.imageTemplate = self.editor.templateImageView;
+    }
+
     [self setCropMenu];
     
     _menuContainer.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
@@ -428,6 +432,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     _rbView.center = [self.superview convertPoint:CGPointMake(_clippingRect.origin.x+_clippingRect.size.width, _clippingRect.origin.y+_clippingRect.size.height) fromView:self];
     
     _gridLayer.clippingRect = clippingRect;
+    if(_imageTemplate != nil) {
+        _imageTemplate.frame = [self convertRect:_clippingRect toView:_imageTemplate.superview];
+    }
     [self setNeedsDisplay];
 }
 
@@ -455,6 +462,9 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
     }
     else{
         self.clippingRect = clippingRect;
+    }
+    if(_imageTemplate != nil) {
+        _imageTemplate.frame = [self convertRect:_clippingRect toView:_imageTemplate.superview];
     }
 }
 
